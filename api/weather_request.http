@@ -1,4 +1,4 @@
-GET http://localhost:8181/weather/servico-b/98010344
+GET http://localhost:8181/weather/servico-b/12345678
 Accept: application/json
 
 ###

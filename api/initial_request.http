@@ -5,6 +5,6 @@ Accept: application/json
 POST http://localhost:8080/weather/servico-a
 Content-Type: application/json
 
-{"cep": "98010345"}
+{"cep": "12345678"}
 
 ###

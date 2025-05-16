@@ -1,0 +1,4 @@
+GET http://localhost:8181/weather/servico-b/98010344
+Accept: application/json
+
+###

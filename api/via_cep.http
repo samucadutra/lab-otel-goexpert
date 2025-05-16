@@ -1,0 +1,4 @@
+GET viacep.com.br/ws/98010344/json/
+Accept: application/json
+
+###

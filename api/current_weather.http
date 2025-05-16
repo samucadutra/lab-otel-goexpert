@@ -1,0 +1,4 @@
+GET http://api.weatherapi.com/v1/current.json?key=3e911140d0214dd8bb622421250705&q=Cruz Alta
+Accept: application/json
+
+###

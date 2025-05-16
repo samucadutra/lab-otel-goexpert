@@ -11,6 +11,7 @@ import (
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"
 	"net/http"
+	"time"
 )
 
 type WeatherHandler struct {
@@ -47,6 +48,8 @@ func (h *WeatherHandler) ProcessServicoA(w http.ResponseWriter, r *http.Request)
 	ctx, span := h.tracer.Start(ctx, viper.GetString("REQUEST_NAME_OTEL"))
 	defer span.End()
 
+	time.Sleep(time.Second * 2)
+
 	response, isValid, err := servicoAUC.Execute(ctx)
 	if err != nil && !isValid {
 		http.Error(w, err.Error(), http.StatusUnprocessableEntity)
@@ -67,6 +70,12 @@ func (h *WeatherHandler) ProcessServicoA(w http.ResponseWriter, r *http.Request)
 }
 
 func (h *WeatherHandler) ProcessServicoB(w http.ResponseWriter, r *http.Request) {
+	carrier := propagation.HeaderCarrier(r.Header)
+	ctx := r.Context()
+	ctx = otel.GetTextMapPropagator().Extract(ctx, carrier)
+	ctx, span := h.tracer.Start(ctx, viper.GetString("REQUEST_NAME_OTEL"))
+	defer span.End()
+
 	zipcode := chi.URLParam(r, "zipcode")
 
 	response, err := h.ServicoBUseCase.Execute(zipcode)
